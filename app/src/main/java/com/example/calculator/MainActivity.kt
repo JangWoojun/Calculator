@@ -19,4 +19,7 @@ class MainActivity : AppCompatActivity() {
     fun onDigit(view:View){
         tvInput?.append((view as Button).text)
     }
+    fun ocClear(view: View){
+        tvInput?.text = ""
+    }
 }
