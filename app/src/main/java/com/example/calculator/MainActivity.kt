@@ -52,6 +52,13 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+    private fun removeZero(result:String):String{
+        var value = result
+        if (result.contains(".0"))
+            value = result.substring(0,result.length-2)
+        return value
+    }
+
     fun onEqual(view: View){
         if (lastNumeric){
             var tvValue = tvInput?.text.toString()
@@ -72,9 +79,45 @@ class MainActivity : AppCompatActivity() {
                         one = prefix + one
                     }
 
-                    tvInput?.text = (one.toDouble() - two.toDouble()).toString()
-
+                    tvInput?.text = removeZero ((one.toDouble() - two.toDouble()).toString())
                 }
+                else if (tvValue.contains("+")){
+                    val splitValue = tvValue.split("+")
+
+                    var one = splitValue[0]
+                    var two = splitValue[1]
+
+                    if (prefix.isNotEmpty()){
+                        one = prefix + one
+                    }
+
+                    tvInput?.text = removeZero ((one.toDouble() + two.toDouble()).toString())
+                }
+                else if (tvValue.contains("*")){
+                    val splitValue = tvValue.split("*")
+
+                    var one = splitValue[0]
+                    var two = splitValue[1]
+
+                    if (prefix.isNotEmpty()){
+                        one = prefix + one
+                    }
+
+                    tvInput?.text = removeZero((one.toDouble() * two.toDouble()).toString())
+                }
+                else if (tvValue.contains("/")){
+                    val splitValue = tvValue.split("/")
+
+                    var one = splitValue[0]
+                    var two = splitValue[1]
+
+                    if (prefix.isNotEmpty()){
+                        one = prefix + one
+                    }
+
+                    tvInput?.text = removeZero((one.toDouble() / two.toDouble()).toString())
+                }
+
             }
             catch (e:ArithmeticException){
                 e.printStackTrace()
